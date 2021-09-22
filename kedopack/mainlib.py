@@ -19,10 +19,5 @@ def get_updates():
     events = kedolib.get_event_list()
 
 
-def prepare_send_list():
-    pass
 
 
-if __name__ == '__main__':
-    get_usr_id("45290465794")
-    get_usr_id("359099419342")

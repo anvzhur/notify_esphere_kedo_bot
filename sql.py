@@ -39,7 +39,6 @@ async def create_db():
 
 
 async def create_pool():
-    print(PG_DATABASE)
     return await asyncpg.create_pool(user=PG_USER,
                                      password=PG_PASS,
                                      host=host,

@@ -20,7 +20,7 @@ class DBCommands:
     GET_ID = "SELECT id FROM users WHERE chat_id = $1"
     CHECK_REFERRALS = "SELECT chat_id FROM users WHERE referral=" \
                       "(SELECT id FROM users WHERE chat_id=$1)"
-    SELECT_CHAT_ID = "SELECT chat_id FROM lentamark WHERE kedo_user_id = $1"
+    SELECT_CHAT_ID = "SELECT chat_id FROM users WHERE kedo_user_id = $1"
     ADD_MONEY = "UPDATE users SET balance=balance+$1 WHERE chat_id = $2"
     ADD_EVENT_ID = "INSERT INTO lentamark(event_id) VALUES ($1)"
     GET_MAX_EVENT_ID = "SELECT MAX(event_id) FROM lentamark"
@@ -96,7 +96,6 @@ db = DBCommands()
 @dp.message_handler(commands=["start"])
 async def register_user(message: types.Message):
     pasp_arg = message.get_args()
-    print(pasp_arg)
     chat_id = message.from_user.id
     id = await db.add_new_user()
     count_users = await db.count_users()
@@ -110,9 +109,6 @@ async def register_user(message: types.Message):
     bot_link = f"https://t.me/{bot_username}?start={id}"
     text += f"""
 Сейчас в базе {count_users} человек!
-
-Ваша реферальная ссылка: {bot_link}
-Проверить рефералов можно по команде: /referrals
 
 Подключиться к КЭДО: /joinKEDO
 """
