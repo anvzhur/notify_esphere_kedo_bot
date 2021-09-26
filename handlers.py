@@ -95,7 +95,6 @@ db = DBCommands()
 
 @dp.message_handler(commands=["start"])
 async def register_user(message: types.Message):
-    pasp_arg = message.get_args()
     chat_id = message.from_user.id
     id = await db.add_new_user()
     count_users = await db.count_users()
@@ -108,9 +107,14 @@ async def register_user(message: types.Message):
     bot_username = (await bot.me).username
     bot_link = f"https://t.me/{bot_username}?start={id}"
     text += f"""
-Сейчас в базе {count_users} человек!
+Кол-во пользователей: {count_users}
+1. Зарегистрируйтесь по ссылке из письма.
+Инструкця по работе \nhttps://disk.yandex.ru/i/ATOEdoBkAnjMuA
 
-Подключиться к КЭДО: /joinKEDO
+
+2 Подключитесь к оповещениям в КЭДО, нажмите: /joinKEDO
+
+
 """
 
     await bot.send_message(chat_id, text, reply_markup=menu)
